@@ -30,4 +30,7 @@ public class Cart {
     private int discount;
 
     private String couponCode;
+
+    public void setUser(User user) {
+    }
 }
