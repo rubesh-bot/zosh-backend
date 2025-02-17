@@ -19,9 +19,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class CustomUserService implements UserDetailsService {
-    private UserRepository userRepository;
-    private SellerRepository sellerRepository;
-    private static final String SELLER_PREFIX="seller_";
+    private final UserRepository userRepository;
+    private final SellerRepository sellerRepository;
+    private static final String SELLER_PREFIX = "seller_";
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -43,10 +43,10 @@ public class CustomUserService implements UserDetailsService {
     }
 
     private UserDetails buildUserDetails(String email, String password, USER_ROLE role) {
-        if(role == null) role = USER_ROLE.ROLE_CUSTOMER;
+        if (role == null) role = USER_ROLE.ROLE_CUSTOMER;
 
         List<GrantedAuthority> authorityList = new ArrayList<>();
-        authorityList.add(new SimpleGrantedAuthority("ROLE_" + role));
+        authorityList.add(new SimpleGrantedAuthority(role.toString()));
 
         return new org.springframework.security.core.userdetails.User(email, password, authorityList);
     }
